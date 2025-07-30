@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Preinscripción NivelMat - Escuela de Matemática UCV</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f0f0f5;
+      padding: 2em;
+      max-width: 700px;
+      margin: auto;
+    }
+    header {
+      text-align: center;
+      margin-bottom: 1em;
+    }
+    header img {
+      max-width: 120px;
+      display: block;
+      margin: auto;
+    }
+    h1 {
+      color: #003366;
+      margin-top: 0.5em;
+    }
+    form {
+      background: #fff;
+      padding: 1.5em;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    }
+    label {
+      display: block;
+      margin-top: 1em;
+      font-weight: bold;
+    }
+    input, textarea, select {
+      width: 100%;
+      padding: 0.5em;
+      margin-top: 0.3em;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+    button {
+      margin-top: 1.5em;
+      padding: 0.7em 1.5em;
+      background: #003366;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #0055aa;
+    }
+    .rating {
+      margin-top: 1em;
+      display: flex;
+      justify-content: space-between;
+    }
+    .rating input {
+      width: auto;
+    }
+    .logos {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 1em;
+    }
+    .logos img {
+      height: 60px;
+      object-fit: contain;
+    }
+  </style>
+  <script src="https://cdn.jsdelivr.net/npm/emailjs-com@3/dist/email.min.js"></script>
+</head>
+<body>
+  <div class="logos">
+    <img src="logo2.png" alt="">
+    <img src="logo3.png" alt="">
+    <img src="logo4.png" alt="">
+    <img src="logo5.png" alt="">
+  </div>
+
+  <header>
+    <img class="logo-central" src="logo.png" alt="Logo NivelMat">
+    <h1>Inscripción al curso NivelMat</h1>
+    <p><strong>Facultad de Ciencias - Escuela de Matemática - UCV</strong></p>
+  </header>
+
+  <form id="formulario">
+    <label for="nombre">Nombre completo:</label>
+    <input type="text" id="nombre" name="nombre" required>
+
+    <label for="cedula">Número de C.I.:</label>
+    <input type="text" id="cedula" name="cedula" required>
+
+    <label for="bachillerato">¿Finalizaste el Bachillerato?</label>
+    <select id="bachillerato" name="bachillerato" required onchange="mostrarColegio(this.value)">
+      <option value="">-- Selecciona una opción --</option>
+      <option value="Sí">Sí</option>
+      <option value="No">No</option>
+    </select>
+
+    <div id="colegioDiv" style="display: none;">
+      <label for="colegio">¿En qué colegio te graduaste?</label>
+      <input type="text" id="colegio" name="colegio">
+    </div>
+
+    <label for="telefono">Número telefónico:</label>
+    <input type="tel" id="telefono" name="telefono" required>
+
+    <label for="correo">Correo electrónico:</label>
+    <input type="email" id="correo" name="correo" required>
+
+    <label for="codigo">Código de verificación (enviado al correo):</label>
+    <input type="text" id="codigo" name="codigo" required placeholder="Ej: 123456">
+
+    <button type="button" onclick="enviarCodigo()">Enviar código al correo</button>
+    <button type="submit">Enviar inscripción</button>
+
+    <div id="ratingDiv" style="display:none;">
+      <label>¿Cómo fue tu experiencia usando esta página? (1-5 estrellas)</label>
+      <div class="rating">
+        <label><input type="radio" name="rating" value="1"> 1 ⭐</label>
+        <label><input type="radio" name="rating" value="2"> 2 ⭐</label>
+        <label><input type="radio" name="rating" value="3"> 3 ⭐</label>
+        <label><input type="radio" name="rating" value="4"> 4 ⭐</label>
+        <label><input type="radio" name="rating" value="5"> 5 ⭐</label>
+      </div>
+    </div>
+
+    <p id="mensajeFinal" style="font-weight: bold; color: green; display:none;">Pronto lo estaremos contactando.</p>
+  </form>
+
+  <script>
+    let codigoVerificacion = "";
+
+    function mostrarColegio(valor) {
+      document.getElementById("colegioDiv").style.display = valor === "Sí" ? "block" : "none";
+      document.getElementById("colegio").required = valor === "Sí";
+    }
+
+    function enviarCodigo() {
+      const correo = document.getElementById("correo").value;
+      if (!correo.includes("@")) {
+        alert("Por favor, introduce un correo válido.");
+        return;
+      }
+
+      codigoVerificacion = Math.floor(100000 + Math.random() * 900000).toString();
+
+      emailjs.init("service_p8t8g0c");
+      emailjs.send("service_p8t8g0c", "template_upkn05d", {
+        email: correo,
+        passcode: codigoVerificacion,
+        time: new Date(new Date().getTime() + 15 * 60000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
+      })
+      .then(() => alert("Código de verificación enviado."))
+      .catch(err => alert("Error al enviar el código: " + err));
+    }
+
+    document.getElementById("formulario").addEventListener("submit", function(e) {
+      e.preventDefault();
+
+      if (document.getElementById("codigo").value !== codigoVerificacion) {
+        alert("El código ingresado no es correcto.");
+        return;
+      }
+
+      const nombre = document.getElementById("nombre").value;
+      const cedula = document.getElementById("cedula").value;
+      const bachillerato = document.getElementById("bachillerato").value;
+      const colegio = document.getElementById("colegio").value;
+      const telefono = document.getElementById("telefono").value;
+      const correo = document.getElementById("correo").value;
+
+      const mensaje = `Nombre completo: ${nombre}\nC.I.: ${cedula}\nFinalizó Bachillerato: ${bachillerato}\nColegio: ${colegio}\nTeléfono: ${telefono}\nCorreo: ${correo}`;
+
+      emailjs.init("service_s8u7899");
+      emailjs.send("service_s8u7899", "template_7us86ts", {
+        mensaje: mensaje
+      })
+      .then(() => {
+        alert("¡Inscripción enviada exitosamente!");
+        document.getElementById("ratingDiv").style.display = "block";
+        document.getElementById("mensajeFinal").style.display = "block";
+      })
+      .catch(err => alert("Error al enviar inscripción: " + err));
+    });
+  </script>
+</body>
+</html>
