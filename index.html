@@ -161,7 +161,7 @@
         time: new Date(new Date().getTime() + 15 * 60000).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
       })
       .then(() => alert("Código de verificación enviado."))
-      .catch(err => alert("Error al enviar el código: " + err));
+      .catch(err => alert("Error al enviar el código: " + JSON.stringify(err)));
     }
 
     document.getElementById("formulario").addEventListener("submit", function(e) {
