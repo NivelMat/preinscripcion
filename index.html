@@ -190,7 +190,7 @@
         document.getElementById("ratingDiv").style.display = "block";
         document.getElementById("mensajeFinal").style.display = "block";
       })
-      .catch(err => alert("Error al enviar inscripción: " + err));
+      .catch(err => alert("Error al enviar inscripción: " + JSON.stringify(err)));
     });
   </script>
 </body>
