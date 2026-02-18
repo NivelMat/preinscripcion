@@ -1,65 +1,119 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Preinscripciones cerradas - NivelMat</title>
-  <style>
-    :root { --azul:#003366; }
-    * { box-sizing: border-box; }
-    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; margin: 0; background: #f6f7fb; color:#222; }
-    header { text-align: center; padding: 16px 12px; background: var(--azul); color: #fff; }
-    header img.logo-nivelmat { max-height: 80px; margin-bottom: 6px; display:block; margin-left:auto; margin-right:auto; }
-    header h1 { margin: 6px 0 10px; font-size: clamp(18px, 3.5vw, 26px); font-weight: 700; }
-    nav { display:flex; gap:18px; justify-content:center; flex-wrap:wrap; }
-    nav a { color:#fff; text-decoration:none; padding:6px 10px; border-radius:999px; border:1px solid rgba(255,255,255,.25); }
-    nav a:hover { background: rgba(255,255,255,.12); }
-    .logos { display:flex; justify-content:center; align-items:center; gap:22px; padding:20px 12px; flex-wrap:wrap; }
-    .logos img { height: 56px; object-fit: contain; filter: drop-shadow(0 0 0 rgba(0,0,0,0.08)); }
-    main { max-width: 860px; margin: 12px auto 48px; padding: 0 16px; }
-    .card { background:#fff; border-radius:16px; padding:28px; box-shadow:0 6px 20px rgba(0,0,0,.06); text-align:center; }
-    .estado { display:inline-block; padding:6px 12px; border-radius:999px; background:#fee; color:#a40000; font-weight:600; border:1px solid #f6b7b7; margin-bottom:10px; }
-    h2 { margin:10px 0 8px; color: var(--azul); font-size: clamp(22px, 4.5vw, 32px); }
-    p { margin: 8px 0 0; font-size: clamp(14px, 2.5vw, 18px); line-height:1.6; }
-    .acciones { margin-top:20px; display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
-    .btn { display:inline-block; padding:10px 16px; border-radius:10px; text-decoration:none; border:1px solid #d9e1ee; }
-    .btn-prim { background: var(--azul); color:#fff; border-color:transparent; }
-    .btn:hover { filter: brightness(1.05); }
-    footer { text-align:center; color:#667; padding:24px 12px 40px; font-size:14px; }
-  </style>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>NivelMat - Curso de Nivelación Matemática</title>
+		<style>
+			:root {
+				--color-primario: #000099;
+				--color-texto: #fff;
+				--color-boton: #fff;
+				--color-boton-hover: #bb9333;
+			}
+			body {
+				margin: 0;
+				font-family: 'Segoe UI', Arial, sans-serif;
+				background: #f5f5f5;
+				color: #222;
+			}
+			.fadein {
+				opacity: 0;
+				transform: translateY(30px);
+				animation: fadein 1s ease forwards;
+			}
+			.fadein.delay1 { animation-delay: 0.2s; }
+			.fadein.delay2 { animation-delay: 0.5s; }
+			.fadein.delay3 { animation-delay: 0.8s; }
+			@keyframes fadein {
+				to {
+					opacity: 1;
+					transform: none;
+				}
+			}
+			.superior {
+				background: var(--color-primario);
+				color: var(--color-texto);
+				padding: 32px 0 24px 0;
+				text-align: center;
+				position: relative;
+			}
+			.logo-nivelmat {
+				width: 90px;
+				height: auto;
+				margin-bottom: 12px;
+			}
+			.titulo-nivelmat {
+				font-size: 2em;
+				font-weight: 700;
+				margin-bottom: 18px;
+				letter-spacing: 1px;
+			}
+			.botones-nav {
+				display: flex;
+				justify-content: center;
+				gap: 18px;
+				margin-top: 10px;
+			}
+			.boton-esferico {
+				background: var(--color-boton);
+				color: var(--color-primario);
+				border: none;
+				border-radius: 999px;
+				padding: 10px 28px;
+				font-size: 1em;
+				font-weight: 600;
+				cursor: pointer;
+				box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+				transition: background 0.2s, color 0.2s;
+			}
+			.boton-esferico:hover {
+				background: var(--color-boton-hover);
+				color: #fff;
+			}
+			@media (max-width: 600px) {
+				.superior { padding: 18px 0 12px 0; }
+				.titulo-nivelmat { font-size: 1.2em; }
+				.logo-nivelmat { width: 60px; }
+				.boton-esferico { padding: 8px 16px; font-size: 0.95em; }
+			}
+		</style>
+				<style>
+				.info-rect {
+					max-width: 800px;
+					margin: 40px auto 0 auto;
+					background: #fff;
+					border-radius: 18px;
+					box-shadow: 0 6px 32px rgba(0,0,0,0.13);
+					padding: 38px 32px 32px 32px;
+					text-align: center;
+					position: relative;
+					z-index: 2;
+				}
+				</style>
 </head>
 <body>
-  <header>
-    <img src="logo.png" class="logo-nivelmat" />
-    <h1>NivelMat - Curso de Nivelación Matemática</h1>
-    <nav>
-      <a href="https://nivelmat.github.io/home/">Inicio</a>
-      <a href="https://nivelmat.github.io/contacto/">Contacto</a>
-    </nav>
-  </header>
-
-  <div class="logos">
-    <img src="logo2.png" />
-    <img src="logo3.jpg" />
-    <img src="logo4.png" />
-    <img src="logo5.jpg" />
-  </div>
-
-  <main>
-    <div class="card">
-      <span class="estado">Estado: Cerrado</span>
-      <h2>Preinscripciones cerradas</h2>
-      <p>Gracias por tu interés. Por ahora, esta página no acepta más registros.</p>
-      <p><strong>Espera la próxima oportunidad para preinscribirte.</strong></p>
-      <div class="acciones">
-        <a class="btn btn-prim" href="https://nivelmat.github.io/home/">Ir al Inicio</a>
-        <a class="btn" href="https://nivelmat.github.io/contacto/">Ver contactos</a>
-      </div>
-    </div>
-  </main>
-
-  <footer>
-    © 2025 NivelMat – Escuela de Matemática, Facultad de Ciencias, UCV
-  </footer>
+		<div class="superior">
+			<img src="nivelmat.png" alt="Logo NivelMat" class="logo-nivelmat fadein delay1" />
+			<div class="titulo-nivelmat fadein delay2">NivelMat - Curso de Nivelación Matemática</div>
+			<div class="botones-nav fadein delay3">
+				<a href="https://nivelmat.github.io/home/" style="text-decoration:none;"><button class="boton-esferico">Home</button></a>
+				<a href="https://nivelmat.github.io/contactos/" style="text-decoration:none;"><button class="boton-esferico">Contactos</button></a>
+			</div>
+		</div>
+</div>
+	<div class="info-rect fadein delay2">
+		<div style="display:flex;flex-direction:column;align-items:center;margin-bottom:18px;">
+			<span style="display:inline-block;min-width:140px;height:40px;border-radius:22px;background:#d32f2f;color:#fff;font-weight:bold;font-size:1.1em;line-height:40px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.10);margin-bottom:12px;padding:0 24px;">Estado: Cerrado</span>
+			<h2 style="margin:0;color:#222;font-size:1.5em;font-weight:700;">Preinscripciones cerradas</h2>
+		</div>
+		<p style="font-size:1.1em;margin-top:18px;">
+			<span style="color:#d32f2f;font-weight:bold;">Por ahora las preinscripciones están cerradas</span><br>
+    		<span style="color:#888;">Mantente atento a esta página para conocer la próxima apertura y el reinicio del curso.</span>
+		</p>
+	</div>
+	<footer class="footer-nivelmat fadein delay3" style="background:transparent;color:#888;font-size:1em;text-align:center;padding:18px 0 10px 0;margin-top:32px;letter-spacing:0.5px;box-shadow:none;">
+		© 2025 NivelMat – Escuela de Matemática, UCV
+	</footer>
 </body>
 </html>
