@@ -247,12 +247,12 @@
 					<div style="margin-bottom:16px;">
 						<label style="display:block;margin-bottom:6px;font-weight:600;color:#222;">Método de pago <span style="color:#d32f2f;">*</span></label>
 					<select id="metodoPago" onchange="actualizarMensajePago()" required style="width:100%;padding:12px;border:1px solid #ddd;border-radius:6px;font-size:1em;box-sizing:border-box;background:#fff;">
-							<option value="transferencia">Transferencia en bolívares</option>
-							<option value="dolares">Divisas en efectivo</option>
+							<option value="completo">Completo (135$)</option>
+							<option value="por_parte">Por Parte (75$, 75$)</option>
 						</select>
 					</div>
 					<div id="mensajePago" style="padding:16px;background:#f0f8ff;border-radius:8px;border:1px solid #d0e8ff;color:#333;line-height:1.6;">
-						Transferencia en bolívares el día de la inscripción a tasa BCV del monto de 135$.
+						Pago de 135$ el día de la inscripción en transferencia bancaria tasa BCV del día o divisas en efectivo.
 					</div>
 				</div>
 
@@ -688,10 +688,10 @@
 			const metodoPago = document.getElementById('metodoPago').value;
 			const mensajePago = document.getElementById('mensajePago');
 			
-			if (metodoPago === 'transferencia') {
-				mensajePago.innerHTML = 'Transferencia en bolívares el día de la inscripción a tasa BCV del monto de 135$.';
-			} else if (metodoPago === 'dolares') {
-				mensajePago.innerHTML = 'Dólares en efectivo. El monto será de $135 USD.';
+			if (metodoPago === 'completo') {
+				mensajePago.innerHTML = 'Pago de 135$ el día de la inscripción en transferencia bancaria tasa BCV del día o divisas en efectivo.';
+			} else if (metodoPago === 'por_parte') {
+				mensajePago.innerHTML = 'Pago de 75$ el día de la inscripción y 75$ el 30 de Junio de 2026 en transferencia bancaria tasa BCV del día o divisas en efectivo.';
 			}
 		}
 
@@ -775,7 +775,7 @@
 					document.getElementById('universidadCarrera').value = '';
 					document.getElementById('telefono').value = '';
 					document.getElementById('correo').value = '';
-					document.getElementById('metodoPago').value = 'transferencia';
+					document.getElementById('metodoPago').value = 'completo';
 					document.querySelectorAll('small').forEach(s => s.style.display = 'none');
 				} else {
 					// Servidor local: leer respuesta JSON
@@ -794,7 +794,7 @@
 						document.getElementById('universidadCarrera').value = '';
 						document.getElementById('telefono').value = '';
 						document.getElementById('correo').value = '';
-						document.getElementById('metodoPago').value = 'transferencia';
+						document.getElementById('metodoPago').value = 'completo';
 						document.querySelectorAll('small').forEach(s => s.style.display = 'none');
 					} else {
 						alert('Error al enviar: ' + (data.error || resp.statusText));
